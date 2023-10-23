@@ -41,7 +41,7 @@ public class customDrawStockView extends View {
         hhmmList.clear();
         LinePriceList.clear();
 
-        // 使用换行符分割字符串并将数据解析为列表，並儲存進相應的列表
+        // 使用換行符分割字符串並將數據解析為列表，並儲存進相應的列表
         parseDataString(closePriceData, "closeList");
         parseDataString(hhmmData, "hhmmList");
         parseDataString(linePriceData, "linePriceList");
@@ -61,9 +61,9 @@ public class customDrawStockView extends View {
         }
 
         LinePriceList.clear();
-        LinePriceList.addAll(adjustedValues);//存入調整后的報價綫資料
+        LinePriceList.addAll(adjustedValues);//存入調整後的報價綫資料
 
-        findMissingTimes(hhmmList,ClosePriceList);//填空缺失的時間段的資料，綫圖起伏不會那麽嚴重
+        findMissingTimes(hhmmList,ClosePriceList);//填空缺失的時間段的資料，綫圖起伏不會那麼嚴重
 
         isDraw = true;//繪製
         isShowHigh = false;//初始化
@@ -81,19 +81,19 @@ public class customDrawStockView extends View {
 
     //====================================
 
-    //填空缺失的時間段的資料，綫圖起伏不會那麽嚴重
+    //填空缺失的時間段的資料，綫圖起伏不會那麼嚴重
     public static void findMissingTimes(List<String> hhmmList,List<Double> CLosePriceList) {
-        // 创建一个范围，表示可能的时间段
+        // 創建一個範圍，表示可能的時間段
         int startHour = Integer.parseInt(hhmmList.get(0).substring(0,2));//開始小時
         int endHour = Integer.parseInt(hhmmList.get(hhmmList.size()-1).substring(0,2));//結束小時
         int startMin = Integer.parseInt(hhmmList.get(0).substring(2));//開始分鐘
         int endMin = Integer.parseInt(hhmmList.get(hhmmList.size()-1).substring(2));//結束分鐘
         String lastNotMissTime = hhmmList.get(0);//用於填空缺失時間段的資料
 
-        // 创建一个 Set 用于存储已经出现的时间段
+        // 創建一個 Set 用於存儲已經出現的時間段
         Set<Integer> timeSet = new HashSet<>();
 
-        // 解析时间字符串并存储为整数
+        // 解析時間字符串並存儲為整數
         for (String hhmm : hhmmList) {
             int time = Integer.parseInt(hhmm);
             timeSet.add(time);
@@ -126,7 +126,7 @@ public class customDrawStockView extends View {
 
     //====================================
 
-    // 辅助方法：将数据字符串分割并解析为列表
+    // 輔助方法：將數據字符串分割並解析為列表
     private void parseDataString(String data, String temp) {
         String[] lines = data.split(", ");
 
@@ -144,9 +144,9 @@ public class customDrawStockView extends View {
 
     //台股升降單位計算
     public double roundToNearest(double value, double nearest) {
-        // 计算最接近的倍数
+        // 計算最接近的倍數
         double multiple = Math.round(value / nearest);
-        return multiple * nearest;// 使用倍数乘以最接近的值以获得修正后的值
+        return multiple * nearest;// 使用倍數乘以最接近的值以獲得修正後的值
     }
 
     //====================================
@@ -203,7 +203,7 @@ public class customDrawStockView extends View {
         int indexFirstTrue = 0;
         int indexLastTrue = -1;
 
-        // 遍历 LinePriceList，檢查當前的LinePrice有沒有在最高和最低的收盤價之間
+        // 遍歷 LinePriceList，檢查當前的LinePrice有沒有在最高和最低的收盤價之間
         //LinePriceList = 309.5, 307.3, 305.1, 302.9, 300.7, 298.5, 296.3, 294.1, 291.9, 289.7, 287.5
         //highestClosePrice = 308.5
         //smallerClosePrice = 297.00
@@ -238,8 +238,8 @@ public class customDrawStockView extends View {
             lineStatusList.set(indexFirstTrue,true);
         }
 
-        //判斷最後一個index后的LinePrice要不要顯示
-        //判斷條件是 最低的收盤價 < LinePrice.get(indexLastTrue)的值 和 indexFirstTrue + 1 會不會大於 LinePriceList.size() 和 最低的收盤價 > LinePriceList.get(indexLastTrue后一筆的值)
+        //判斷最後一個index後的LinePrice要不要顯示
+        //判斷條件是 最低的收盤價 < LinePrice.get(indexLastTrue)的值 和 indexFirstTrue + 1 會不會大於 LinePriceList.size() 和 最低的收盤價 > LinePriceList.get(indexLastTrue後一筆的值)
         if (smallerClosePrice < LinePriceList.get(indexLastTrue) && indexLastTrue + 1 < LinePriceList.size() && smallerClosePrice > LinePriceList.get(indexLastTrue + 1)){
             indexLastTrue += 1;
             lineStatusList.set(indexLastTrue,true);
@@ -272,7 +272,7 @@ public class customDrawStockView extends View {
         //lineStatusList = true, true, true, true, true, true, true, false, false, false, false
         //isTrueCount = 7
 
-        //可以解開以下注釋查看數值
+        //可以解開以下註釋查看數值
         //System.out.println("TestTest:"+LinePriceList);
         //System.out.println("TestTest:"+lineStatusList);
         //System.out.println("TestTest:"+indexFirstTrue);
